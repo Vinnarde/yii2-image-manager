@@ -1,3 +1,6 @@
+This isn`t working!
+That`s what i get for working at Microsoft! - (C) Gabe Newell
+
 Image manager for Yii2
 ========================
 
