@@ -88,8 +88,11 @@ class ImageManagerGetPath extends Component {
 			}
 
 			$sFileExtension = pathinfo($mImageManager->fileName, PATHINFO_EXTENSION);
+
+            // get subdirectory of image
+            $sub_directory = '/'.$mImageManager->createdBy;
 			//get image file path
-			$sImageFilePath = $sMediaPath . '/' . $mImageManager->id . '_' . $mImageManager->fileHash . '.' . $sFileExtension;
+			$sImageFilePath = $sMediaPath . $sub_directory . '/' . $mImageManager->id . '_' . $mImageManager->fileHash . '.' . $sFileExtension;
 			//check file exists
 			if (file_exists($sImageFilePath)) {
 				$return = \Yii::$app->imageresize->getUrl($sImageFilePath, $width, $height, $thumbnailMode, null, $mImageManager->fileName);

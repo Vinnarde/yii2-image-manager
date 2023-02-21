@@ -152,8 +152,13 @@ class ManagerController extends Controller {
 						//move file to dir
 						$sSaveFileName = $model->id . "_" . $model->fileHash . "." . $sFileExtension;
 						//move_uploaded_file($sTempFile, $sMediaPath."/".$sFileName);
+
+                        //create subdirectory for images based on user id
+                        $subdirectory = "/".$model->createdBy;
+                        BaseFileHelper::createDirectory($sMediaPath.$subdirectory);
+
 						//save with Imagine class
-						Image::getImagine()->open($sTempFile)->save($sMediaPath . "/" . $sSaveFileName);
+						Image::getImagine()->open($sTempFile)->save($sMediaPath . $subdirectory. "/" . $sSaveFileName);
 						$bSuccess = true;
 					}
 				}
@@ -295,11 +300,15 @@ class ManagerController extends Controller {
                     // merge current image in canvas, crop image and save
                     $imagineRgb = new RGB();
                     $imagineColor = $imagineRgb->color('#FFF', 0);
+
+                    $subdirectory = "/".$model->createdBy;
+                    BaseFileHelper::createDirectory($sMediaPath.$subdirectory);
+
                     // create image
                     Image::getImagine()->create(new Box($imageCanvasWidthRounded, $imageCanvasHeightRounded), $imagineColor)
                                 ->paste($imageOriginal, new Point($imageOriginalPositionXRounded, $imageOriginalPositionYRounded))
                                 ->crop(new Point($imageCropPositionXRounded, $imageCropPositionYRounded), new Box($imageCropWidthRounded, $imageCropHeightRounded))
-                                ->save($sMediaPath . "/" . $sSaveFileName);
+                                ->save($sMediaPath . $subdirectory ."/" . $sSaveFileName);
                     
                     //set boolean crop success to true
                     $bCropSuccess = true;

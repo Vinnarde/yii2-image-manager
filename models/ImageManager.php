@@ -128,8 +128,12 @@ class ImageManager extends \yii\db\ActiveRecord {
 		//set media path
 		$sMediaPath = \Yii::$app->imagemanager->mediaPath;
 		$sFileExtension = pathinfo($this->fileName, PATHINFO_EXTENSION);
+
+        //get subdirectory of images
+        $sub_directory = "/".$this->createdBy;
+
 		//get image file path
-		$sImageFilePath = $sMediaPath . '/' . $this->id . '_' . $this->fileHash . '.' . $sFileExtension;
+		$sImageFilePath = $sMediaPath . $sub_directory .'/' . $this->id . '_' . $this->fileHash . '.' . $sFileExtension;
 		//check file exists
 		if (file_exists($sImageFilePath)) {
 			$return = $sImageFilePath;
@@ -146,9 +150,14 @@ class ImageManager extends \yii\db\ActiveRecord {
 		$return = ['width' => 0, 'height' => 0, 'size' => 0];
 		//set media path
 		$sMediaPath = \Yii::$app->imagemanager->mediaPath;
-		$sFileExtension = pathinfo($this->fileName, PATHINFO_EXTENSION);
-		//get image file path
-		$sImageFilePath = $sMediaPath . '/' . $this->id . '_' . $this->fileHash . '.' . $sFileExtension;
+        $sFileExtension = pathinfo($this->fileName, PATHINFO_EXTENSION);
+
+        //get subdirectory of images
+        $sub_directory = "/".$this->createdBy;
+
+        //get image file path
+        $sImageFilePath = $sMediaPath . $sub_directory .'/' . $this->id . '_' . $this->fileHash . '.' . $sFileExtension;
+
 		//check file exists
 		if (file_exists($sImageFilePath)) {
 			$aImageDimension = getimagesize($sImageFilePath);
