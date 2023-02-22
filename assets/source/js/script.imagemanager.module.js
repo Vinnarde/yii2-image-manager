@@ -21,20 +21,20 @@ var imageManagerModule = {
 			imageManagerModule.selectImage(imageManagerModule.defaultImageId);
 		}
 		
-		//set selected after pjax complete
-		$('#pjax-mediamanager').on('pjax:complete', function() {
-			if(imageManagerModule.selectedImage !== null){
-				imageManagerModule.selectImage(imageManagerModule.selectedImage.id);
-			}
-		});
+		// //set selected after pjax complete
+		// $('#pjax-mediamanager').on('pjax:complete', function() {
+		// 	if(imageManagerModule.selectedImage !== null){
+		// 		imageManagerModule.selectImage(imageManagerModule.selectedImage.id);
+		// 	}
+		// });
 	},
 	//filter result
 	filterImageResult: function(searchTerm){
-		//set new url
 		var newUrl = window.queryStringParameter.set(window.location.href, "ImageManagerSearch[globalSearch]", searchTerm);
-		//set pjax
+
 		$.pjax({url: newUrl, container: "#pjax-mediamanager", push: false, replace: false, timeout: 5000, scrollTo:false});
-	},	
+		$.pjax.reload({url: newUrl, container:'#pjax-mediamanager'}, {push: false, replace: false, timeout: 5000, scrollTo: false});
+	},
 	//select an image
 	selectImage: function(id){
 		//set selected class
@@ -131,6 +131,7 @@ var imageManagerModule = {
 							//set selectedImage to null
 							imageManagerModule.selectedImage = null;
 							//close edit
+							$.pjax.reload('#pjax-mediamanager', {push: false, replace: false, timeout: 5000, scrollTo: false});
 						}else{
 							alert("Error: item is not deleted");
 						}
@@ -186,6 +187,7 @@ var imageManagerModule = {
 	uploadSuccess: function(uploadResponse){
 		//close editor
 		imageManagerModule.editor.close();
+
 		//reload pjax container
 		$.pjax.reload('#pjax-mediamanager', {push: false, replace: false, timeout: 5000, scrollTo: false});
 	},
@@ -285,6 +287,9 @@ var imageManagerModule = {
 };
 
 $(document).ready(function () {
+
+	var delayTimer = null;
+
 	//init Image manage
 	imageManagerModule.init();	
 	//on click select item (open view)
@@ -311,12 +316,12 @@ $(document).ready(function () {
 	});
 	//on click apply crop
 	$(document).on("click", "#module-imagemanager .image-cropper .apply-crop", function (){
-		imageManagerModule.editor.applyCrop();	
+		imageManagerModule.editor.applyCrop();
 		return false;
 	});
 	//on click apply crop
 	$(document).on("click", "#module-imagemanager .image-cropper .apply-crop-select", function (){
-		imageManagerModule.editor.applyCrop(true);	
+		imageManagerModule.editor.applyCrop(true);
 		return false;
 	});
 	//on click cancel crop
@@ -326,7 +331,13 @@ $(document).ready(function () {
 	});
 	//on keyup change set filter
 	$( document ).on("keyup change", "#input-mediamanager-search", function() {
-		imageManagerModule.filterImageResult($(this).val());
+		//clear timer
+		if (delayTimer)	clearTimeout(delayTimer);
+		//set delay timer
+		const value = $(this).val();
+		delayTimer = setTimeout(function() {
+			imageManagerModule.filterImageResult(value);
+		}, 200);
 	});
 	
 });

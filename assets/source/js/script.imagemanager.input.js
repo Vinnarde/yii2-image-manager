@@ -63,7 +63,8 @@ var imageManagerInput = {
 			if(confirm(imageManagerInput.message.detachWarningMessage) == false){
 				return false;
 			}
-		}		
+		}
+
 		//set input data		
 		$('#'+sFieldId).val("");
 		$('#'+sFieldNameId).val("");
@@ -94,5 +95,7 @@ $(document).ready(function () {
 		var inputId = $(this).data("input-id");
 		//open selector id
 		imageManagerInput.deletePickedImage(inputId);
-	});	
+		//reload pjax container
+		$.pjax.reload('#pjax-mediamanager', {push: false, replace: false, timeout: 5000, scrollTo: false});
+	});
 });
