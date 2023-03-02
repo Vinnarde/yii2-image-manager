@@ -2,6 +2,7 @@
 
 namespace noam148\imagemanager\controllers;
 
+use App\Models\PpcAdvertiserOptions;
 use Yii;
 use noam148\imagemanager\models\ImageManager;
 use noam148\imagemanager\models\ImageManagerSearch;
@@ -105,7 +106,9 @@ class ManagerController extends Controller
         $query = $model::find()->select('count(id) as result')->where(['createdBy' => Yii::$app->user->id]);
         $numberOfImages = $query->asArray()->one()['result'];
 
-        $isLimitReached = $numberOfImages >= 10;
+        $uploadLimit = PpcAdvertiserOptions::findOne(Yii::$app->user->id)->image_limit;
+
+        $isLimitReached = $numberOfImages >= $uploadLimit;
 
         //render template
         return $this->render(
@@ -172,8 +175,9 @@ class ManagerController extends Controller
                         $result = $query->asArray()->one();
 
                         $number_of_images = $result['result'];
+                        $uploadLimit = PpcAdvertiserOptions::findOne(Yii::$app->user->id)->image_limit;
 
-                        if ($number_of_images > 10) {
+                        if ($number_of_images > $uploadLimit) {
                             $bSuccess = false;
                             break;
                         } else {
@@ -252,8 +256,9 @@ class ManagerController extends Controller
                 $result = $query->asArray()->one();
 
                 $number_of_images = $result['result'];
+                $uploadLimit = PpcAdvertiserOptions::findOne(Yii::$app->user->id)->image_limit;
 
-                if ($number_of_images > 10) {
+                if ($number_of_images > $uploadLimit) {
                     $bCropSuccess = false;
                 } else {
 
