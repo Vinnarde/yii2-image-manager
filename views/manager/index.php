@@ -24,17 +24,17 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                     <img id="image-cropper"/>
                 </div>
                 <div class="action-buttons">
-                    <a href="#" class="btn btn-primary apply-crop">
+                    <a href="#ad-block" class="btn btn-primary apply-crop">
                         <i class="fa fa-crop"></i>
                         <span class="hidden-xs"><?= Yii::t('imagemanager', 'Crop') ?></span>
                     </a>
                     <?php if ($viewMode === "iframe"): ?>
-                        <a href="#" class="btn btn-primary apply-crop-select">
+                        <a href="#ad-block" class="btn btn-primary apply-crop-select">
                             <i class="fa fa-crop"></i>
                             <span class="hidden-xs"><?= Yii::t('imagemanager', 'Crop and select') ?></span>
                         </a>
                     <?php endif; ?>
-                    <a href="#" class="btn btn-default cancel-crop">
+                    <a href="#ad-block" class="btn btn-default cancel-crop">
                         <i class="fa fa-undo"></i>
                         <span class="hidden-xs"><?= Yii::t('imagemanager', 'Cancel') ?></span>
                     </a>
@@ -110,7 +110,7 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                 </div>
                 <?php if (!$isLimitReached): ?>
                     <div class="edit-buttons">
-                        <a href="#" class="btn btn-primary btn-block crop-image-item">
+                        <a href="#ad-block" class="btn btn-primary btn-block crop-image-item">
                             <i class="fa fa-crop"></i>
                             <span class="hidden-xs"><?= Yii::t('imagemanager', 'Crop') ?></span>
                         </a>
@@ -125,7 +125,7 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                     <?php
                     if (Yii::$app->controller->module->canRemoveImage):
                         ?>
-                        <a href="#" class="btn btn-xs btn-danger delete-image-item"><span
+                        <a href="#ad-block" class="btn btn-xs btn-danger delete-image-item"><span
                                     class="glyphicon glyphicon-trash"
                                     aria-hidden="true"></span> <?= Yii::t('imagemanager', 'Delete') ?></a>
                     <?php
@@ -133,7 +133,7 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                     ?>
                 </div>
                 <?php if ($viewMode === "iframe"): ?>
-                    <a href="#"
+                    <a href="#ad-block"
                        class="btn btn-primary btn-block pick-image-item"><?= Yii::t('imagemanager', 'Select') ?></a>
                 <?php endif; ?>
             </div>
