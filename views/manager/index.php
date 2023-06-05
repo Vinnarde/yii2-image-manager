@@ -11,10 +11,19 @@ $this->title = Yii::t('imagemanager', 'Image manager');
 ?>
 <div id="module-imagemanager" class="container-fluid <?= $selectType ?>">
     <div class="form-group">
-        <?= Html::textInput('input-mediamanager-search', null, ['id' => 'input-mediamanager-search', 'class' => 'form-control', 'placeholder' => Yii::t('imagemanager', 'Search') . '...']) ?>
+        <?= Html::textInput(
+            'input-mediamanager-search',
+            null,
+            [
+                'id' => 'input-mediamanager-search',
+                'class' => 'form-control',
+                'placeholder' => Yii::t('imagemanager', 'Search') . '...'
+            ]
+        ) ?>
     </div>
     <div class="row">
-        <?php Pjax::begin([
+        <?php
+        Pjax::begin([
             'id' => 'pjax-mediamanager',
             'timeout' => '5000'
         ]); ?>
@@ -28,12 +37,14 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                         <i class="fa fa-crop"></i>
                         <span class="hidden-xs"><?= Yii::t('imagemanager', 'Crop') ?></span>
                     </a>
-                    <?php if ($viewMode === "iframe"): ?>
+                    <?php
+                    if ($viewMode === "iframe"): ?>
                         <a href="#ad-block" class="btn btn-primary apply-crop-select">
                             <i class="fa fa-crop"></i>
                             <span class="hidden-xs"><?= Yii::t('imagemanager', 'Crop and select') ?></span>
                         </a>
-                    <?php endif; ?>
+                    <?php
+                    endif; ?>
                     <a href="#ad-block" class="btn btn-default cancel-crop">
                         <i class="fa fa-undo"></i>
                         <span class="hidden-xs"><?= Yii::t('imagemanager', 'Cancel') ?></span>
@@ -42,10 +53,11 @@ $this->title = Yii::t('imagemanager', 'Image manager');
             </div>
         </div>
         <div class="col-xs-6 col-sm-10 col-overview">
-<!--            --><?php //Pjax::begin([
-//                'id' => 'pjax-mediamanager',
-//                'timeout' => '5000'
-//            ]); ?>
+            <!--            --><?php
+            //Pjax::begin([
+            //                'id' => 'pjax-mediamanager',
+            //                'timeout' => '5000'
+            //            ]); ?>
             <?= ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemOptions' => ['class' => 'item img-thumbnail'],
@@ -54,17 +66,20 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                     return $this->render("_item", ['model' => $model]);
                 },
             ]) ?>
-<!--            --><?php //Pjax::end(); ?>
+            <!--            --><?php
+            //Pjax::end(); ?>
         </div>
 
         <div class="col-xs-6 col-sm-2 col-options">
 
 
-            <?php if ($isLimitReached) : ?>
+            <?php
+            if ($isLimitReached) : ?>
                 <div class="alert alert-warning">
                     <?= Yii::t('imagemanager', 'You have reached the maximum number of images.') ?>
                 </div>
-            <?php else: ?>
+            <?php
+            else: ?>
 
                 <?php
                 if (Yii::$app->controller->module->canUploadImage):
@@ -102,20 +117,23 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                 endif;
                 ?>
 
-            <?php endif; ?>
+            <?php
+            endif; ?>
 
             <div class="image-info hide">
                 <div class="thumbnail">
                     <img src="#">
                 </div>
-                <?php if (!$isLimitReached): ?>
+                <?php
+                if (!$isLimitReached): ?>
                     <div class="edit-buttons">
                         <a href="#ad-block" class="btn btn-primary btn-block crop-image-item">
                             <i class="fa fa-crop"></i>
                             <span class="hidden-xs"><?= Yii::t('imagemanager', 'Crop') ?></span>
                         </a>
                     </div>
-                <?php endif; ?>
+                <?php
+                endif; ?>
                 <div class="details">
                     <div class="fileName"></div>
                     <div class="created"></div>
@@ -132,12 +150,15 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                     endif;
                     ?>
                 </div>
-                <?php if ($viewMode === "iframe"): ?>
+                <?php
+                if ($viewMode === "iframe"): ?>
                     <a href="#ad-block"
                        class="btn btn-primary btn-block pick-image-item"><?= Yii::t('imagemanager', 'Select') ?></a>
-                <?php endif; ?>
+                <?php
+                endif; ?>
             </div>
         </div>
-        <?php Pjax::end(); ?>
+        <?php
+        Pjax::end(); ?>
     </div>
 </div>

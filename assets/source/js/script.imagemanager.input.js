@@ -20,7 +20,7 @@ var imageManagerInput = {
 							sModalHtml += '<h4>Image manager</h4>';
 						sModalHtml += '</div>';
 						sModalHtml += '<div class="modal-body">';
-							sModalHtml += '<iframe src="#"></iframe>';
+							sModalHtml += '<iframe></iframe>';
 						sModalHtml += '</div>';
 					sModalHtml += '</div>';
 				sModalHtml += '</div>';

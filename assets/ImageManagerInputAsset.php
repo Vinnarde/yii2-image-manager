@@ -7,15 +7,19 @@ use yii\web\AssetBundle;
  */
 class ImageManagerInputAsset extends AssetBundle
 {
+
     public $sourcePath = '@vendor/noam148/yii2-image-manager/assets/source';
+
     public $css = [
 		'css/imagemanager.input.css',
     ];
+
     public $js = [
         'js/script.imagemanager.input.js',
     ];
+
     public $depends = [
 		'yii\web\JqueryAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
+//        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
