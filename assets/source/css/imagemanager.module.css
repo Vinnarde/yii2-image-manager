@@ -8,7 +8,7 @@
 #module-imagemanager > .row .col-overview{ padding-left: 0; padding-right: 0; border-right: 1px solid #ddd; height: 100%; overflow: auto; }
 #module-imagemanager > .row .col-overview .item-overview{ max-height: 500px; overflow: auto; }
 #module-imagemanager > .row .col-overview .item-overview .item{ position: relative; overflow: hidden; width: 128px; height: 128px; cursor: pointer; }
-#module-imagemanager > .row .col-overview .item-overview .item.selected{ background: #00ac24; }
+#module-imagemanager > .row .col-overview .item-overview .item.selected{ background: #3AC2BA; }
 #module-imagemanager > .row .col-overview .item-overview .item .thumbnail{ margin-bottom: 0; }
 #module-imagemanager > .row .col-overview .item-overview .item .thumbnail img{ max-height: 118px; background: #dadada; }
 #module-imagemanager > .row .col-overview .item-overview .item .thumbnail .filename{ background-color: rgba(255, 255, 255, 0.9); position: absolute; bottom: 4px; left: 4px; right: 4px; max-height: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding: 0 10px; }
@@ -34,3 +34,4 @@
 #module-imagemanager > .row .col-options .image-info .pick-image-item{ margin-top: 10px; }
 
 #module-imagemanager a.delete-image-item { margin-top: 5px; }
+

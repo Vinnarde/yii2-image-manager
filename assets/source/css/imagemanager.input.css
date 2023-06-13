@@ -27,8 +27,14 @@
 
 .image-manager-input .image-wrapper .img-preview {
     background: #dadada;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 300px;
+    max-height: 300px;
     height: auto;
-    line-height: 1.42857;
+    line-height: 100%;
 }
+
+.hide {
+    display: none !important;
+}
+
+

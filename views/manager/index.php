@@ -9,6 +9,44 @@ use kartik\file\FileInput;
 $this->title = Yii::t('imagemanager', 'Image manager');
 
 ?>
+
+<style>
+    #module-imagemanager .btn-primary {
+        background-color: rgba(113, 62, 230, 1);
+        border-radius: 6px;
+        border: none;
+
+        transition: background-color 0.3s ease-in-out;
+        transition: scale 0.3s ease-in-out;
+    }
+
+    #module-imagemanager .btn-primary:hover {
+        background-color: rgba(113, 62, 230, 0.9);
+    }
+
+    #module-imagemanager .modal-content {
+        border-radius: 12px;
+    }
+
+    #module-imagemanager .btn-danger {
+        background-color: rgba(223, 22, 9, 0.1);
+        transition: all 0.3s;
+        color: #df1609;
+        line-height: 14px;
+        width: 100%;
+        border-radius: 6px;
+    }
+
+    #module-imagemanager .btn-red-light:hover {
+        background-color: #df1609;
+    }
+
+    #module-imagemanager .btn-red-light:hover svg path {
+        fill: #fff;
+    }
+
+</style>
+
 <div id="module-imagemanager" class="container-fluid <?= $selectType ?>">
     <div class="form-group">
         <?= Html::textInput(
@@ -143,7 +181,7 @@ $this->title = Yii::t('imagemanager', 'Image manager');
                     <?php
                     if (Yii::$app->controller->module->canRemoveImage):
                         ?>
-                        <a href="#ad-block" class="btn btn-xs btn-danger delete-image-item"><span
+                        <a href="#ad-block" class="btn btn-danger delete-image-item"><span
                                     class="glyphicon glyphicon-trash"
                                     aria-hidden="true"></span> <?= Yii::t('imagemanager', 'Delete') ?></a>
                     <?php
@@ -162,3 +200,5 @@ $this->title = Yii::t('imagemanager', 'Image manager');
         Pjax::end(); ?>
     </div>
 </div>
+
+
