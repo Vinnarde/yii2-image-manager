@@ -24,6 +24,11 @@ class ImageManagerInputWidget extends InputWidget
     public $cropViewMode = 1; //option info: https://github.com/fengyuanchen/cropper/#viewmode
 
     /**
+     * @var string Define placeholder for the input
+     */
+    public $placeholder = null;
+
+    /**
      * @var bool Show a preview of the image under the input
      */
     public $showPreview = true;
@@ -76,10 +81,10 @@ class ImageManagerInputWidget extends InputWidget
                 $ImageManager_fileName = $mImageManager->fileName;
             }
             //create field
-            $field .= Html::textInput($this->attribute, $ImageManager_fileName, ['class' => 'custom-border-input', 'id' => $sFieldNameId, 'readonly' => true]);
+            $field .= Html::textInput($this->attribute, $ImageManager_fileName, ['class' => 'custom-border-input', 'id' => $sFieldNameId, 'readonly' => true, 'placeholder' => $this->placeholder]);
             $field .= Html::activeHiddenInput($this->model, $this->attribute, $this->options);
         } else {
-            $field .= Html::textInput($this->name . "_name", null, ['readonly' => true]);
+            $field .= Html::textInput($this->name . "_name", null, ['readonly' => true, 'placeholder' => $this->placeholder]);
             $field .= Html::hiddenInput($this->name, $this->value, $this->options);
         }
 
