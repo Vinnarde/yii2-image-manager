@@ -17,7 +17,7 @@ use yii\helpers\Html;
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="dialog dbd-dialog" data-name="image-manager">
 <?php $this->beginBody() ?>
 
 <?= $content; ?>
