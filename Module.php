@@ -109,12 +109,6 @@ class Module extends \yii\base\Module
      */
     private function _checkExtensionsExists()
     {
-        //kartik file uploaded is installed
-        if (!class_exists('kartik\file\FileInput')) {
-            throw new UnknownClassException(
-                "Can't find: kartik\\file\FileInput. Install \"kartik-v/yii2-widget-fileinput\": \"@dev\""
-            );
-        }
         //check Yii imagine is installed
         if (!class_exists('yii\imagine\Image')) {
             throw new UnknownClassException(
