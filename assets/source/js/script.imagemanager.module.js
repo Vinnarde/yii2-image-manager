@@ -133,7 +133,7 @@ const imageManagerModule = {
             //check if delete is true
             if (responseData.delete === true) {
               //delete item element
-              $('#module-imagemanager image-manager__images .item[data-key=\'' + id + '\']').remove()
+              $('#module-imagemanager .image-manager__images .item[data-key=\'' + id + '\']').remove()
               //set selectedImage to null
               imageManagerModule.selectedImage = null
               //close edit
@@ -173,7 +173,7 @@ const imageManagerModule = {
             //check if delete is true
             if (responseData.delete === true) {
               //delete item element
-              $('#module-imagemanager image-manager__images .item[data-key=\'' + imageManagerModule.selectedImage.id + '\']').remove()
+              $('#module-imagemanager .image-manager__images .item[data-key=\'' + imageManagerModule.selectedImage.id + '\']').remove()
               //add hide class to info block
               $('#module-imagemanager .image-info').addClass('hide')
               //set selectedImage to null
