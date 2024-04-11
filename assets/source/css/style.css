@@ -1988,6 +1988,10 @@ img {
     --font-bold: "Involve Bold", sans-serif;
 }
 
+.img-thumbnail {
+    max-height: 175px;
+}
+
 .img-thumbnail.is-active .img-manager-img {
     /*border: 2px solid rgba(var(--color-primary-rgb), 0.2);*/
     border-color: var(--color-primary);
