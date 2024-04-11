@@ -119,6 +119,7 @@ const imageManagerModule = {
   //delete image
   deleteImageById: function (id) {
     if (confirm(imageManagerModule.message.deleteMessage)) {
+      imageManagerModule.editor.close()
       if (id !== null) {
         //call action by ajax
         $.ajax({
@@ -134,6 +135,7 @@ const imageManagerModule = {
             if (responseData.delete === true) {
               //delete item element
               $('#module-imagemanager .image-manager__images .item[data-key=\'' + id + '\']').remove()
+              $('#module-imagemanager .image-info').addClass('hide')
               //set selectedImage to null
               imageManagerModule.selectedImage = null
               //close edit
