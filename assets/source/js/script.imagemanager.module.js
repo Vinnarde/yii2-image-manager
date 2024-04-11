@@ -116,6 +116,42 @@ const imageManagerModule = {
     }
 
   },
+  //delete image
+  deleteImageById: function (id) {
+    if (confirm(imageManagerModule.message.deleteMessage)) {
+      if (id !== null) {
+        //call action by ajax
+        $.ajax({
+          url: imageManagerModule.baseUrl + '/delete',
+          type: 'POST',
+          data: {
+            ImageManager_id: id,
+            _csrf: $('meta[name=csrf-token]').prop('content')
+          },
+          dataType: 'json',
+          success: function (responseData, textStatus, jqXHR) {
+            //check if delete is true
+            if (responseData.delete === true) {
+              //delete item element
+              $('#module-imagemanager image-manager__images .item[data-key=\'' + id + '\']').remove()
+              //set selectedImage to null
+              imageManagerModule.selectedImage = null
+              //close edit
+              $.pjax.reload('#pjax-mediamanager', { push: false, replace: false, timeout: 5000, scrollTo: false })
+            } else {
+              alert('Error: item is not deleted')
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error: can\'t delete item')
+          }
+        })
+      } else {
+        alert('Error: image can\'t delete, no image isset set')
+      }
+    }
+
+  },
   //delete the selected image
   deleteSelectedImage: function () {
     //confirm message
@@ -315,19 +351,17 @@ $(document).ready(function () {
   })
   //on click pick image
   $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .pick-image-item', function () {
-    console.log("Pick image item")
     imageManagerModule.pickImage()
     return false
   })
   //on click delete call "delete"
   $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .delete-image-item', function () {
-    console.log("Delete image item")
     imageManagerModule.deleteSelectedImage()
     return false
   })
   //on click crop call "crop"
   $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .crop-image-item', function () {
-    console.log("Crop image item")
+    console.log('Crop image item')
     imageManagerModule.editor.openCropper()
     return false
   })

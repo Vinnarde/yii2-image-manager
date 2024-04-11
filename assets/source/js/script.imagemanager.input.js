@@ -65,10 +65,10 @@ var imageManagerInput = {
   //delete picked image
   deletePickedImage: function (inputId) {
     //remove value of the input field
-    var sFieldId = inputId
-    var sFieldNameId = sFieldId + '_name'
-    var sImagePreviewId = sFieldId + '_image'
-    var bShowConfirm = JSON.parse($('.delete-selected-image[data-input-id=\'' + inputId + '\']').data('show-delete-confirm'))
+    const sFieldId = inputId
+    const sFieldNameId = sFieldId + '_name'
+    const sImagePreviewId = sFieldId + '_image'
+    const bShowConfirm = JSON.parse($('.delete-selected-image[data-input-id=\'' + inputId + '\']').data('show-delete-confirm'))
     //show warning if bShowConfirm == true
     if (bShowConfirm) {
       if (confirm(imageManagerInput.message.detachWarningMessage) == false) {
@@ -94,16 +94,16 @@ $(document).ready(function () {
 
   //open media manager modal
   $(document).on('click', '.open-modal-imagemanager', function () {
-    var aspectRatio = $(this).data('aspect-ratio')
-    var cropViewMode = $(this).data('crop-view-mode')
-    var inputId = $(this).data('input-id')
+    const aspectRatio = $(this).data('aspect-ratio')
+    const cropViewMode = $(this).data('crop-view-mode')
+    const inputId = $(this).data('input-id')
     //open selector id
     imageManagerInput.openModal(inputId, aspectRatio, cropViewMode)
   })
 
   //delete picked image
   $(document).on('click', '.delete-selected-image', function () {
-    var inputId = $(this).data('input-id')
+    const inputId = $(this).data('input-id')
     //open selector id
     imageManagerInput.deletePickedImage(inputId)
     //reload pjax container
