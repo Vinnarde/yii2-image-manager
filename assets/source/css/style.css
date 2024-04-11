@@ -567,6 +567,7 @@
     border: 2px solid rgba(var(--color-primary-rgb), 0.2);
     border-radius: 1.2rem;
     transition: border-color var(--transition-medium-cubic);
+    max-width: 200px;
 }
 
 .img-manager-img.is-active {
