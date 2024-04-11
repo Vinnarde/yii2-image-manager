@@ -117,8 +117,8 @@ const imageManagerModule = {
 
   },
   //delete image
-  deleteImageById: function (id) {
-    this.stopPropagation()
+  deleteImageById: function (id, event) {
+    event.stopPropagation()
     if (confirm(imageManagerModule.message.deleteMessage)) {
       imageManagerModule.editor.close()
       if (id !== null) {
