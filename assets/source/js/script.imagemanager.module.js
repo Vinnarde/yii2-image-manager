@@ -225,6 +225,7 @@ const imageManagerModule = {
           $('#module-imagemanager .image-manager__controls .img-manager-selected__info.created').text(responseData.created)
           $('#module-imagemanager .image-manager__controls .img-manager-selected__info.fileSize').text(responseData.fileSize)
           $('#module-imagemanager .image-manager__controls .img-manager-selected__info.dimensions .dimension-width').text(responseData.dimensionWidth)
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__info.dimensions .dimension-separator').text('×')
           $('#module-imagemanager .image-manager__controls .img-manager-selected__info.dimensions .dimension-height').text(responseData.dimensionHeight)
           $('#module-imagemanager .image-manager__controls .img-manager__image-wrapper').html('<img src=\'' + responseData.image + '\' alt=\'' + responseData.fileName + '\'/>')
           //remove hide class

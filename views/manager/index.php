@@ -75,9 +75,11 @@ $this->title = Yii::t('imagemanager', 'Image manager');
 				</div>
       <?php endif; ?>
 		<div class="img-manager-selected">
-			<picture class="img-manager__image-wrapper">
-				<img src="#" alt="">
-			</picture>
+			<div class="img-manager-selected__overlay" style="width: 170px; height: 170px; border-radius: 5px;">
+				<picture class="img-manager__image-wrapper">
+					<img src="#" alt="">
+				</picture>
+			</div>
         <?php if (!$isLimitReached && false): ?>
 					<div class="edit-buttons">
 						<a href="#ad-block" class="btn btn-primary btn-block crop-image-item">
@@ -92,7 +94,7 @@ $this->title = Yii::t('imagemanager', 'Image manager');
 				<div class="img-manager-selected__info fileSize"></div>
 				<div class="img-manager-selected__info dimensions">
 					<span class="dimension-width"></span>
-					x
+					<span class="dimension-separator"></span>
 					<span class="dimension-height"></span>
 				</div>
           <?php if (Yii::$app->controller->module->canRemoveImage && false): ?>
@@ -157,9 +159,9 @@ $this->title = Yii::t('imagemanager', 'Image manager');
     var fileData = $(this).prop('files')
     var formData = new FormData()
 
-	  Array.from(fileData).forEach(function (file) {
-		  formData.append('imagemanagerFiles[]', file)
-	  })
+    Array.from(fileData).forEach(function (file) {
+      formData.append('imagemanagerFiles[]', file)
+    })
     // formData.append('imagemanagerFiles[]', fileData)
 
     console.log(formData)
