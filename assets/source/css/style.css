@@ -2001,3 +2001,34 @@ img {
 body.dbd-dialog {
     margin: 0;
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) rgba(127, 23, 175, 0.1843137255);
+
+    --os-size:0.2rem;
+    --os-padding-perpendicular:0;
+    --os-track-border-radius:0.5rem;
+    --os-track-bg:rgba(var(--color-primary-rgb), 0.1);
+    --os-handle-border-radius:0.5rem;
+    --os-handle-bg:var(--color-primary);
+}
+
+*::-webkit-scrollbar {
+    width: 0.2rem !important;
+}
+
+*::-webkit-scrollbar-track {
+    background-color:rgba(var(--color-primary-rgb), 0.1) !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary) !important;
+}
+
+@-moz-document url-prefix() {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color:var(--color-primary) rgba(var(--color-primary-rgb), 0.1);
+    }
+}
