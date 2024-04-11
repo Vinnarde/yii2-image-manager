@@ -13,9 +13,7 @@ class ImageManagerModuleAsset extends AssetBundle
     public $css        = [
         'css/cropper.min.css',
         'css/imagemanager.module.css',
-        'css/dashboard.2a01f7e4.css',
-        //        'css/main.0bf01421.css',
-        //        'css/pages.f7a945f6.css'
+        'css/style.css',
     ];
     public $js         = [
         'js/cropper.min.js',
@@ -23,6 +21,5 @@ class ImageManagerModuleAsset extends AssetBundle
     ];
     public $depends    = [
         'yii\web\JqueryAsset',
-        //        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
