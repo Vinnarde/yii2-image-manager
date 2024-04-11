@@ -9,31 +9,42 @@
 #modal-imagemanager iframe {
     border: none;
     width: 100%;
-    min-height: 500px;
+    /*min-height: 500px;*/
     display: block;
     overflow: hidden !important;
+    padding: 40px;
+    border-radius: 30px;
+    min-height: calc(100dvh - 8rem);
+    max-height: 647px;
+    background-color: white;
 }
 
-/*.image-manager-input {*/
-/*    flex-grow: 1;*/
+/*#module-imagemanager .dialog__inner-wrapper {*/
+/*    height: 100%;*/
+
+/*    max-height: calc(100dvh - 8rem);*/
 /*}*/
 
-/*.image-manager-input .image-wrapper {*/
-/*    margin-top: 10px;*/
-/*    border: 1px solid #ddd;*/
-/*    border-radius: 4px;*/
-/*    display: inline-block;*/
-/*    padding: 4px;*/
-/*    background: #FFF;*/
-/*}*/
+.image-manager-input {
+    flex-grow: 1;
+}
 
-/*.image-manager-input .image-wrapper .img-preview {*/
-/*    background: #dadada;*/
-/*    max-width: 300px;*/
-/*    max-height: 300px;*/
-/*    height: auto;*/
-/*    line-height: 100%;*/
-/*}*/
+.image-manager-input .image-wrapper {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 4px;
+    background: #FFF;
+}
+
+.image-manager-input .image-wrapper .img-preview {
+    background: #dadada;
+    max-width: 300px;
+    max-height: 300px;
+    height: auto;
+    line-height: 100%;
+}
 
 /*.hide {*/
 /*    display: none !important;*/

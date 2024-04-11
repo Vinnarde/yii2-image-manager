@@ -1,4 +1,4 @@
-var imageManagerModule = {
+const imageManagerModule = {
   //params for input selector
   fieldId: null,
   cropRatio: null,
@@ -30,7 +30,7 @@ var imageManagerModule = {
   },
   //filter result
   filterImageResult: function (searchTerm) {
-    var newUrl = window.queryStringParameter.set(window.location.href, 'ImageManagerSearch[globalSearch]', searchTerm)
+    const newUrl = window.queryStringParameter.set(window.location.href, 'ImageManagerSearch[globalSearch]', searchTerm)
 
     $.pjax({
       url: newUrl,
@@ -50,8 +50,8 @@ var imageManagerModule = {
   //select an image
   selectImage: function (id) {
     //set selected class
-    $('#module-imagemanager .item-overview .item').removeClass('selected')
-    $('#module-imagemanager .item-overview .item[data-key=\'' + id + '\']').addClass('selected')
+    $('#module-imagemanager .image-manager__images .item').removeClass('is-active')
+    $('#module-imagemanager .image-manager__images .item[data-key=\'' + id + '\']').addClass('is-active')
     //get details
     imageManagerModule.getDetails(id)
   },
@@ -62,9 +62,9 @@ var imageManagerModule = {
       //default widget selector
       case 'input':
         //get id data
-        var sFieldId = imageManagerModule.fieldId
-        var sFieldNameId = sFieldId + '_name'
-        var sFieldImageId = sFieldId + '_image'
+        const sFieldId = imageManagerModule.fieldId
+        const sFieldNameId = sFieldId + '_name'
+        const sFieldImageId = sFieldId + '_image'
         //set input data
         $('#' + sFieldId, window.parent.document).val(imageManagerModule.selectedImage.id)
         $('#' + sFieldNameId, window.parent.document).val(imageManagerModule.selectedImage.fileName)
@@ -92,13 +92,14 @@ var imageManagerModule = {
             },
             dataType: 'json',
             success: function (responseData, textStatus, jqXHR) {
-              //set attributes for each selector
+              let sField
+//set attributes for each selector
               if (imageManagerModule.selectType == 'ckeditor') {
-                var sField = window.queryStringParameter.get(window.location.href, 'CKEditorFuncNum')
+                sField = window.queryStringParameter.get(window.location.href, 'CKEditorFuncNum')
                 window.top.opener.CKEDITOR.tools.callFunction(sField, responseData)
                 window.self.close()
               } else if (imageManagerModule.selectType == 'tinymce') {
-                var sField = window.queryStringParameter.get(window.location.href, 'tag_name')
+                sField = window.queryStringParameter.get(window.location.href, 'tag_name')
                 window.opener.document.getElementById(sField).value = responseData
                 window.close()
                 window.opener.focus()
@@ -136,7 +137,7 @@ var imageManagerModule = {
             //check if delete is true
             if (responseData.delete === true) {
               //delete item element
-              $('#module-imagemanager .item-overview .item[data-key=\'' + imageManagerModule.selectedImage.id + '\']').remove()
+              $('#module-imagemanager image-manager__images .item[data-key=\'' + imageManagerModule.selectedImage.id + '\']').remove()
               //add hide class to info block
               $('#module-imagemanager .image-info').addClass('hide')
               //set selectedImage to null
@@ -158,7 +159,7 @@ var imageManagerModule = {
   },
   //get image details
   getDetails: function (id, pickAfterGetDetails) {
-    //set propertie if not set
+    //set properties if not set
     pickAfterGetDetails = pickAfterGetDetails !== undefined ? pickAfterGetDetails : false
     //call action by ajax
     $.ajax({
@@ -176,17 +177,19 @@ var imageManagerModule = {
         //if need to pick image?
         if (pickAfterGetDetails) {
           imageManagerModule.pickImage()
+          console.log(responseData)
           //else set data
         } else {
           //set text elements
-          $('#module-imagemanager .image-info .fileName').text(responseData.fileName).attr('title', responseData.fileName)
-          $('#module-imagemanager .image-info .created').text(responseData.created)
-          $('#module-imagemanager .image-info .fileSize').text(responseData.fileSize)
-          $('#module-imagemanager .image-info .dimensions .dimension-width').text(responseData.dimensionWidth)
-          $('#module-imagemanager .image-info .dimensions .dimension-height').text(responseData.dimensionHeight)
-          $('#module-imagemanager .image-info .thumbnail').html('<img src=\'' + responseData.image + '\' alt=\'' + responseData.fileName + '\'/>')
+          console.log(responseData)
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__name').text(responseData.fileName).attr('title', responseData.fileName)
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__info.created').text(responseData.created)
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__info.fileSize').text(responseData.fileSize)
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__info.dimensions .dimension-width').text(responseData.dimensionWidth)
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__info.dimensions .dimension-height').text(responseData.dimensionHeight)
+          $('#module-imagemanager .image-manager__controls .img-manager__image-wrapper').html('<img src=\'' + responseData.image + '\' alt=\'' + responseData.fileName + '\'/>')
           //remove hide class
-          $('#module-imagemanager .image-info').removeClass('hide')
+          $('#module-imagemanager .image-manager__controls .img-manager-selected__wrapper .img-manager-select__name').removeClass('hide')
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -304,24 +307,27 @@ $(document).ready(function () {
   //init Image manage
   imageManagerModule.init()
   //on click select item (open view)
-  $(document).on('click', '#module-imagemanager .item-overview .item', function () {
+  $(document).on('click', '#module-imagemanager .image-manager__images .item', function () {
     //get id
-    var ImageManager_id = $(this).data('key')
+    const ImageManager_id = $(this).data('key')
     //select image
     imageManagerModule.selectImage(ImageManager_id)
   })
   //on click pick image
-  $(document).on('click', '#module-imagemanager .image-info .pick-image-item', function () {
+  $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .pick-image-item', function () {
+    console.log("Pick image item")
     imageManagerModule.pickImage()
     return false
   })
   //on click delete call "delete"
-  $(document).on('click', '#module-imagemanager .image-info .delete-image-item', function () {
+  $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .delete-image-item', function () {
+    console.log("Delete image item")
     imageManagerModule.deleteSelectedImage()
     return false
   })
   //on click crop call "crop"
-  $(document).on('click', '#module-imagemanager .image-info .crop-image-item', function () {
+  $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .crop-image-item', function () {
+    console.log("Crop image item")
     imageManagerModule.editor.openCropper()
     return false
   })

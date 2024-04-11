@@ -1,3 +1,32 @@
+@font-face {
+    font-family: "Involve Regular";
+    src: url(/common/fonts//involve-regular.woff2) format("woff2"), url(/common/fonts//involve-regular.woff) format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: "Involve Medium";
+    src: url(/common/fonts//involve-medium.woff2) format("woff2"), url(/common/fonts//involve-medium.woff) format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: "Involve Bold";
+    src: url(/common/fonts//involve-bold.woff2) format("woff2"), url(/common/fonts//involve-bold.woff) format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+}
+
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
 .button,
 .dbd-tg-dialog .tg-dialog-footer button.tg-dialog-btn {
     --bg-color: var(--color-primary);
@@ -256,7 +285,7 @@
 }
 
 .dbd-form__selected-image {
-    max-width: 17.7rem;
+    max-width: 16rem;
 }
 
 .dbd-form__select-creative-button {
@@ -341,15 +370,15 @@
     width: calc(100% - 5rem);
     height: -webkit-fit-content;
     height: -moz-fit-content;
-    height: fit-content;
+    height: 100%;
     outline: transparent;
 }
 
 .dialog.dbd-dialog .dialog__inner-wrapper {
     top: initial;
     min-height: 20rem;
-    max-height: calc(100dvh - 8rem);
-    padding: 2rem;
+    max-height: 100%;
+    /*padding: 2rem;*/
     background-color: var(--color-white);
     color: var(--dbd-text-color);
     transform: none;
@@ -495,7 +524,7 @@
 .dialog.dbd-dialog[data-name=image-manager] .dialog__inner-wrapper {
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 2rem;
+    /*padding: 2rem;*/
 }
 
 .dialog.dbd-dialog[data-name=image-manager] .dialog__header {
@@ -1091,10 +1120,9 @@ input.clr-color {
         max-width: 89.6rem;
     }
 
-    .dialog.dbd-dialog .dialog__inner-wrapper {
-        padding: 4rem 3rem;
-    }
-
+    /*.dialog.dbd-dialog .dialog__inner-wrapper {*/
+    /*    padding: 4rem 3rem;*/
+    /*}*/
     .dialog-step__h2 + .dbd-table-container {
         width: calc(100% + 2rem);
     }
@@ -1126,10 +1154,9 @@ input.clr-color {
         margin-top: 2.4rem;
     }
 
-    .dialog.dbd-dialog[data-name=image-manager] .dialog__inner-wrapper {
-        padding: 4rem;
-    }
-
+    /*.dialog.dbd-dialog[data-name=image-manager] .dialog__inner-wrapper {*/
+    /*    padding: 4rem;*/
+    /*}*/
     .image-manager {
         display: grid;
         grid-template-columns:auto 19.9rem;
@@ -1137,9 +1164,9 @@ input.clr-color {
     }
 
     .image-manager__images {
-        grid-template-columns:repeat(auto-fit, minmax(17rem, 1fr));
+        grid-template-columns:repeat(auto-fit, minmax(16rem, 1fr));
         gap: 2rem;
-        max-height: 64.7rem;
+        max-height: calc(100dvh - 16rem);
         padding-right: 1.8rem;
     }
 
@@ -1908,4 +1935,63 @@ html {
     font-size: 10px;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+}
+
+img {
+    box-sizing: initial;
+    height: auto;
+    width: 100%;
+}
+
+.form__text-input {
+    align-items: center;
+    background-color: #0000;
+    border: none;
+    border-bottom: 1px solid rgba(var(--color-pitch-violet-rgb), .1);
+    display: flex;
+    font-family: var(--font-medium);
+    font-size: 1.4rem;
+    height: 4.6rem;
+    padding: 0 2.6rem;
+    transition: border-color var(--transition-duration-medium);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form__field--search .input-text {
+    padding-right: 5.6rem;
+}
+
+.form__field--search .form__label::after, .ts-dropdown .dropdown-input-wrap::after {
+    background-image: url(/img/search.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    content: "";
+    height: 2rem;
+    opacity: .2;
+    position: absolute;
+    right: -100rem;
+    top: 3rem;
+    transform: translateY(-50%);
+    transition: opacity var(--transition-medium-cubic);
+    width: 2rem;
+}
+
+.form__field, .form__field--search .form__label, .ts-dropdown .dropdown-input-wrap {
+    position: relative;
+}
+
+:root {
+    --font-regular: "Involve Regular", sans-serif;
+    --font-medium: "Involve Medium", sans-serif;
+    --font-bold: "Involve Bold", sans-serif;
+}
+
+.img-thumbnail.is-active .img-manager-img {
+    /*border: 2px solid rgba(var(--color-primary-rgb), 0.2);*/
+    border-color: var(--color-primary);
+}
+
+body.dbd-dialog {
+    margin: 0;
 }

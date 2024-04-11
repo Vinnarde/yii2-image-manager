@@ -31,7 +31,8 @@ var imageManagerInput = {
       // sModalHtml += '<div class="h1 dialog__heading">Image manager</div>'
       // sModalHtml += '<button class="button dbd-dialog__upload-button">Upload</button>'
       // sModalHtml += '</header>'
-      sModalHtml += '<iframe class="dialog__inner-wrapper"></iframe>'
+      // sModalHtml += '<iframe class="dialog__inner-wrapper"></iframe>'
+      sModalHtml += '<iframe class="dialog__inner-wrapper123"></iframe>'
       // sModalHtml += '</div>'
       sModalHtml += '</dialog>'
       //prepend data to body
@@ -58,7 +59,8 @@ var imageManagerInput = {
   },
   //close media manager modal
   closeModal: function () {
-    $('#modal-imagemanager').close()
+    document.getElementById('modal-imagemanager').close()
+    // $('#modal-imagemanager').close()
   },
   //delete picked image
   deletePickedImage: function (inputId) {
