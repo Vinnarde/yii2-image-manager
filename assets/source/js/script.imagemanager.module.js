@@ -12,7 +12,7 @@ const imageManagerModule = {
   //init imageManager
   init: function () {
     //init cropper
-    $('#module-imagemanager > .row .col-image-editor .image-cropper .image-wrapper img#image-cropper').cropper({
+    $('#module-imagemanager .image-cropper .image-wrapper img#image-cropper').cropper({
       viewMode: imageManagerModule.cropViewMode
     })
 
@@ -200,6 +200,10 @@ const imageManagerModule = {
   getDetails: function (id, pickAfterGetDetails) {
     //set properties if not set
     pickAfterGetDetails = pickAfterGetDetails !== undefined ? pickAfterGetDetails : false
+
+    if (isNaN(id)) {
+      return
+    }
     //call action by ajax
     $.ajax({
       url: imageManagerModule.baseUrl + '/view',
@@ -216,11 +220,9 @@ const imageManagerModule = {
         //if need to pick image?
         if (pickAfterGetDetails) {
           imageManagerModule.pickImage()
-          console.log(responseData)
           //else set data
         } else {
           //set text elements
-          console.log(responseData)
           $('#module-imagemanager .image-manager__controls .img-manager-selected__name').text(responseData.fileName).attr('title', responseData.fileName)
           $('#module-imagemanager .image-manager__controls .img-manager-selected__info.created').text(responseData.created)
           $('#module-imagemanager .image-manager__controls .img-manager-selected__info.fileSize').text(responseData.fileSize)
@@ -250,14 +252,14 @@ const imageManagerModule = {
     //open editor block
     open: function () {
       //show editer / hide overview
-      $('#module-imagemanager > .row .col-image-editor').show()
-      $('#module-imagemanager > .row .col-overview').hide()
+      $('#module-imagemanager .image-manager__cropper').show()
+      $('#module-imagemanager .image-manager__images').hide()
     },
     //close editor block
     close: function () {
       //show overview / hide editer
-      $('#module-imagemanager > .row .col-overview').show()
-      $('#module-imagemanager > .row .col-image-editor').hide()
+      $('#module-imagemanager .image-manager__images').show()
+      $('#module-imagemanager .image-manager__cropper').hide()
     },
     //open cropper
     openCropper: function () {
@@ -274,11 +276,11 @@ const imageManagerModule = {
           dataType: 'json',
           success: function (responseData, textStatus, jqXHR) {
             //hide cropper
-            $('#module-imagemanager > .row .col-image-cropper').css('visibility', 'hidden')
+            $('#module-imagemanager .image-manager__cropper').css('visibility', 'hidden')
             //set image in cropper
-            $('#module-imagemanager > .row .col-image-editor .image-cropper .image-wrapper img#image-cropper').one('built.cropper', function () {
+            $('#module-imagemanager .image-manager__cropper .image-cropper .image-wrapper img#image-cropper').one('built.cropper', function () {
               //show cropper
-              $('#module-imagemanager > .row .col-image-cropper').css('visibility', 'visible')
+              $('#module-imagemanager .image-manager__cropper').css('visibility', 'visible')
             })
               .cropper('reset')
               .cropper('setAspectRatio', parseFloat(imageManagerModule.cropRatio))
@@ -301,7 +303,7 @@ const imageManagerModule = {
       //check if isset image
       if (imageManagerModule.selectedImage !== null) {
         //set image in cropper
-        var oCropData = $('#module-imagemanager > .row .col-image-editor .image-cropper .image-wrapper img#image-cropper').cropper('getData')
+        var oCropData = $('#module-imagemanager .image-manager__cropper .image-cropper .image-wrapper img#image-cropper').cropper('getData')
         //call action by ajax
         $.ajax({
           url: imageManagerModule.baseUrl + '/crop',
@@ -365,7 +367,6 @@ $(document).ready(function () {
   })
   //on click crop call "crop"
   $(document).on('click', '#module-imagemanager .image-manager__controls-wrapper .crop-image-item', function () {
-    console.log('Crop image item')
     imageManagerModule.editor.openCropper()
     return false
   })
@@ -419,3 +420,76 @@ window.queryStringParameter = {
     }
   }
 }
+
+const dialogs = document.querySelectorAll('.dialog');
+let dialogOverlay = document.querySelector('.dialog-overlay');
+if (!dialogOverlay) {
+  const overlay = document.createElement('div');
+  overlay.classList.add('dialog-overlay', 'overlay');
+  document.body.appendChild(overlay);
+  dialogOverlay = overlay;
+}
+
+dialogs.forEach((dialog) => {
+  const openButtons = document.querySelectorAll(
+    `[data-dialog=${dialog.dataset.name}]`,
+  );
+  const closeButton = dialog.querySelectorAll(
+    '.close-button, [data-close-dialog]',
+  );
+
+  function animationHandler() {
+    dialog.classList.remove('close');
+    dialog.close();
+    dialog.removeEventListener('animationcancel', cancelAnimationHandler);
+  }
+
+  function cancelAnimationHandler() {
+    dialog.classList.remove('close');
+    dialog.removeEventListener('animationend', animationHandler);
+  }
+
+  const closeDialog = () => {
+    dialog.classList.add('close');
+    dialogOverlay.classList.remove('is-visible');
+
+    // Reset listeners if the Escape button has been pressed
+    dialog.addEventListener('animationcancel', cancelAnimationHandler);
+
+    dialog.addEventListener('animationend', animationHandler, { once: true });
+  };
+
+  dialog.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dialogOverlay.classList.remove('is-visible');
+    }
+  });
+
+  openButtons.forEach((openButton) => {
+    openButton.addEventListener('click', () => {
+      dialogs.forEach((dialog) => {
+        dialog.close();
+      });
+      if (dialog.dataset.modal === 'true') {
+        dialog.showModal();
+        dialogOverlay.classList.add('is-visible');
+      } else {
+        dialog.show();
+      }
+      // Reset initial dialog focus
+      dialog.focus();
+    });
+  });
+
+  closeButton.forEach((closeButton) => {
+    closeButton.addEventListener('click', () => {
+      closeDialog();
+    });
+  });
+
+  if (dialog.dataset.clickableBackdrop === 'true') {
+    dialog.addEventListener('click', (e) => {
+      e.target === dialog && closeDialog();
+    });
+  }
+});

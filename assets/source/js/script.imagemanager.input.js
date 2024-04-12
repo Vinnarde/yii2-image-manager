@@ -2,6 +2,8 @@ var imageManagerInput = {
   baseUrl: null,
   //language
   message: null,
+  dialog: null,
+  dialogOverlay: null,
   //init imageManagerInput
   init: function () {
     //create modal
@@ -12,31 +14,20 @@ var imageManagerInput = {
     //check if modal not jet exists
     if ($('#modal-imagemanager').length === 0) {
       //set html modal in var
-      // var sModalHtml = '<div tabindex="-1" role="dialog" class="fade modal" id="modal-imagemanager">'
-      // sModalHtml += '<div class="modal-dialog modal-lg">'
-      // sModalHtml += '<div class="modal-content">'
-      // sModalHtml += '<div class="modal-header">'
-      // sModalHtml += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>'
-      // sModalHtml += '<h4>Image manager</h4>'
-      // sModalHtml += '</div>'
-      // sModalHtml += '<div class="modal-body">'
-      // sModalHtml += '<iframe></iframe>'
-      // sModalHtml += '</div>'
-      // sModalHtml += '</div>'
-      // sModalHtml += '</div>'
-      // sModalHtml += '</div>'
       let sModalHtml = '<dialog class="dialog dbd-dialog" id="modal-imagemanager" data-name="image-manager" data-modal="true" data-clickable-backdrop="true">'
-      // sModalHtml += '<div class="dialog__inner-wrapper">'
-      // sModalHtml += '<header class="dialog__header">'
-      // sModalHtml += '<div class="h1 dialog__heading">Image manager</div>'
-      // sModalHtml += '<button class="button dbd-dialog__upload-button">Upload</button>'
-      // sModalHtml += '</header>'
-      // sModalHtml += '<iframe class="dialog__inner-wrapper"></iframe>'
       sModalHtml += '<iframe class="dialog__inner-wrapper123"></iframe>'
-      // sModalHtml += '</div>'
       sModalHtml += '</dialog>'
       //prepend data to body
       $('body').prepend(sModalHtml)
+
+      imageManagerInput.dialog = document.getElementById('modal-imagemanager')
+      imageManagerInput.dialogOverlay = document.querySelector('.dialog-overlay')
+      if (!imageManagerInput.dialogOverlay) {
+        const overlay = document.createElement('div')
+        overlay.classList.add('dialog-overlay', 'overlay')
+        document.body.appendChild(overlay)
+        imageManagerInput.dialogOverlay = overlay
+      }
     }
   },
   //open media manager modal
@@ -55,12 +46,28 @@ var imageManagerInput = {
     //set translation title for modal header
     // $('#modal-imagemanager .modal-dialog .modal-header h4').text(imageManagerInput.message.imageManager)
     //open modal
-    document.getElementById('modal-imagemanager').showModal()
+
+
+    imageManagerInput.dialog.showModal()
+    imageManagerInput.dialogOverlay.classList.add('is-visible')
+    imageManagerInput.dialog.focus()
+
+    imageManagerInput.dialog.addEventListener('click', (e) => {
+      e.target === imageManagerInput.dialog && imageManagerInput.closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && imageManagerInput.dialog) {
+        imageManagerInput.closeModal();
+      }
+    });
+
   },
   //close media manager modal
   closeModal: function () {
-    document.getElementById('modal-imagemanager').close()
-    // $('#modal-imagemanager').close()
+    imageManagerInput.dialog.close();
+    imageManagerInput.dialog.classList.add('close');
+    imageManagerInput.dialogOverlay.classList.remove('is-visible');
   },
   //delete picked image
   deletePickedImage: function (inputId) {
@@ -101,8 +108,17 @@ $(document).ready(function () {
     imageManagerInput.openModal(inputId, aspectRatio, cropViewMode)
   })
 
+  // $(document).on('click', '.dbd-form__upload-label', function () {
+  //   const aspectRatio = $(this).data('aspect-ratio')
+  //   const cropViewMode = $(this).data('crop-view-mode')
+  //   const inputId = $(this).data('input-id')
+  //   //open selector id
+  //   imageManagerInput.openModal(inputId, aspectRatio, cropViewMode)
+  // })
+
   //delete picked image
   $(document).on('click', '.delete-selected-image', function () {
+
     const inputId = $(this).data('input-id')
     //open selector id
     imageManagerInput.deletePickedImage(inputId)
