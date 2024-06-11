@@ -93,7 +93,7 @@ $this->title = Yii::t('imagemanager', 'Image manager');
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions'  => ['class' => 'item img-thumbnail'],
-        'layout'       => "<div class='image-manager__images'>{items}</div> {pager}",
+        'layout'       => "<div class='image-manager__images'>{items}</div>",
         'itemView'     => function ($model, $key, $index, $widget) {
             return $this->render("_item", ['model' => $model]);
         },
